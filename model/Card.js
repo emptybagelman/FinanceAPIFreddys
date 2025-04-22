@@ -29,7 +29,7 @@ class Card {
     }
 
     static async create(data){
-        const {user_id, name, minimum} = data
+        const {user_id, name, minimum, balance} = data
 
         const resp = await db.query("INSERT INTO cards (user_id, name, minimum, balance) VALUES ($1, $2, $3, $4) RETURNING id;",[user_id, name, minimum, balance])
 
