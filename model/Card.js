@@ -1,11 +1,12 @@
 const db = require("../database/connect")
 
 class Card {
-    constructor({ id, user_id, name, minimum }){
+    constructor({ id, user_id, name, minimum, balance }){
         this.id = id
         this.user_id = user_id
         this.name = name
         this.minimum = minimum
+        this.balance = balance
     }
 
     static async getAll(){
@@ -30,7 +31,7 @@ class Card {
     static async create(data){
         const {user_id, name, minimum} = data
 
-        const resp = await db.query("INSERT INTO cards (user_id, name, minimum) VALUES ($1, $2, $3) RETURNING id;",[user_id, name, minimum])
+        const resp = await db.query("INSERT INTO cards (user_id, name, minimum, balance) VALUES ($1, $2, $3, $4) RETURNING id;",[user_id, name, minimum, balance])
 
         const newId = resp.rows[0].id
         const newCard = await Card.getById(newId)
@@ -39,7 +40,7 @@ class Card {
 
     async update(data){
         try {
-            const validColumns = ["name", "minimum"];
+            const validColumns = ["name", "minimum", "balance"];
             const setClauses = [];
             const values = [];
             let index = 1;

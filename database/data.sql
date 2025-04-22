@@ -16,6 +16,7 @@ CREATE TABLE cards(
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
     minimum DECIMAL(5,2) NOT NULL,
+    balance DECIMAL(6,2) NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users(id)
 );
@@ -43,12 +44,19 @@ VALUES
         'I heart my sexy girlfriend.'
     );
 
-INSERT INTO cards (user_id, name, minimum)
+INSERT INTO cards (user_id, name, minimum, balance)
 VALUES
     (
         1,
         'Nationwide',
-        -500.00
+        -300.00,
+        1000.00
+    ),
+    (
+        1,
+        'Monzo',
+        -500.00,
+        560.00
     );
 
 INSERT INTO transactions (user_id, card_id, payee, amount, date_paid)
@@ -57,13 +65,27 @@ VALUES
         1,
         1,
         'Tesco',
-        10.95,
+        -10.95,
         '2025-04-01'
     ),
     (
         1,
         1,
         'Londis',
-        6.00,
+        -6.00,
         '2025-04-01'
+    ),
+    (
+        1,
+        1,
+        'Monzo',
+        50.00,
+        '2025-04-03'
+    ),
+    (
+        1,
+        2,
+        'Monzo',
+        -50.00,
+        '2025-04-04'
     );
